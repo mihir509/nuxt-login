@@ -5,14 +5,17 @@
     <form @submit.prevent="login">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" v-model="email" required>
+        <input type="email" id="email" name="email" v-model="loginData.email" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" v-model="password" required>
+        <input type="password" id="password" name="password" v-model="loginData.password" required>
       </div>
-      <div class="form-group">
+      <div class="form-group" @click="login">
         <button type="submit">Login</button>
+      </div>
+      <div>
+      <p v-if="errorMessage" class="error-message">{{errorMessage}}</p>
       </div>
       <div class="forgothere">
         <p>Forgot Password?</p>
@@ -28,28 +31,36 @@
   </div>
 </template>
 
+
+
 <script>
+
+import { loginUser } from '../.nuxt/api.js'
+
+
 export default {
   name: 'LoginPage',
   data() {
     return {
-      email:'',
-      password:''
+      errorMessage:'',
+      loginData: {
+        username: '',
+        password: ''
+      }
     }
   },
   methods: {
-     async login() {
+  
+    async login() {
       try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password
-          }
-        })
-        // Redirect to the home page after successful login
-        this.$router.push('/')
+        const response = await loginUser(this.loginData)
+        if(response){
+          this.$router.push('dashboard');
+        }
       } catch (error) {
-        console.log('Login error:', error)
+      this.errorMessage = 'Incorrect username or password. Please try again.'
+
+        console.error(error)
       }
     }
   }
@@ -127,5 +138,9 @@ button[type="submit"]:hover {
 .forgothere{
   color: #0061d5;
   cursor: pointer;
+}
+.error-message {
+  color: #f00;
+  font-weight: bold;
 }
 </style>

@@ -4,22 +4,26 @@
     <form @submit.prevent="register">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" v-model="name" required>
+        <input type="text" id="name" name="name" v-model="registerData.name" required>
+        <!-- <span v-if="name === ''" class="error">{{ rules.name.message }}</span> -->
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" v-model="email" required>
+        <input type="email" id="email" name="email" v-model="registerData.email" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" v-model="password" required>
+        <input type="password" id="password" name="password" v-model="registerData.password" required>
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="confirm-password">Confirm Password</label>
         <input type="password" id="confirm-password" name="confirm-password" v-model="confirmPassword" required>
-      </div>
+      </div> -->
       <div class="form-group">
-        <button type="submit">Register</button>
+        <button type="submit" @click="register">Register</button>
+      </div>
+       <div>
+      <p v-if="successMessage" class="success-message">{{successMessage}}</p>
       </div>
       <div class="logitext">
         <p>
@@ -36,14 +40,35 @@
 
 
 <script>
+
+import { registerUser } from '../.nuxt/api.js'
+
 export default {
     data () {
         return {
-            name:'',
-            email:'',
-            password:'',
-            confirmPassword:'',
+            // confirmPassword:'',
+            successMessage:'',
+             registerData: {
+                name: '',
+                email: '',
+                password: ''
+            },
+            // rules: {
+            //     name:[{required:true , message:'Name is Required'}],
+            //     email:[{required:true, message:'Email is Required'}],
+            //     password:[{required:true , message:'Password is Required'}]
+            // }
         }
+    },
+    methods:{
+           async register() {
+            try {
+                const response = await registerUser(this.registerData)
+                this.successMessage = ' User Register successfully '
+            } catch (error) {
+                console.error(error)
+            }
+            },
     }
 }
 </script> 
@@ -117,5 +142,8 @@ button[type="submit"]:hover {
     color: #0061d5;
     cursor: pointer;
 }
-
+.success-message {
+  color: green;
+  font-weight: bold;
+}
 </style>

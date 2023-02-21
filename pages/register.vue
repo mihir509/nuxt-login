@@ -15,10 +15,10 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" v-model="registerData.password" required>
       </div>
-      <!-- <div class="form-group">
-        <label for="confirm-password">Confirm Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" v-model="confirmPassword" required>
-      </div> -->
+      <div class="form-group">
+        <label for="confirm-password">Contact Number</label>
+        <input type="text" id="contact-number" name="number" v-model="registerData.number" required>
+      </div>
       <div class="form-group">
         <button type="submit" @click="register">Register</button>
       </div>
@@ -41,7 +41,7 @@
 
 <script>
 
-import { registerUser } from '../.nuxt/api.js'
+import { registerUser } from '../store/api.js'
 
 export default {
     data () {
@@ -51,7 +51,8 @@ export default {
              registerData: {
                 name: '',
                 email: '',
-                password: ''
+                password: '',
+                number: '',
             },
             // rules: {
             //     name:[{required:true , message:'Name is Required'}],

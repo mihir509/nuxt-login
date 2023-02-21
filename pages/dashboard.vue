@@ -35,7 +35,7 @@
 
 <script>
 
-import { logoutUser } from '../.nuxt/api.js'
+import { logoutUser } from '../store/api.js'
 
 
 export default {

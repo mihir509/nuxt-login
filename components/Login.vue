@@ -1,7 +1,7 @@
 <template>
-    <div class="col-lg-6 px-0">
-    <div  class="login-form" >
-        <form @submit.prevent="login" v-if="!showChild">
+    <div class="col-lg-6 px-0 d-flex justify-content-center align-item-center">
+    <div  class="login-form signIN" >
+        <form @submit.prevent="login" v-if="!showChild" class="animate__animated">
           <div class="formcontainer">
           <div class="img-container">
             <p>Welcome to <img src="/assets/jaim_logo.png" class="img-fluid mx-2" /></p>
@@ -39,7 +39,7 @@
           </div>
         </form>
       </div>
-      <Register v-if="showChild" />
+      <Register v-if="showChild" class="register"  />
     </div>
 </template>
 
@@ -47,6 +47,7 @@
 
 import Register from '@/components/Register.vue'
 import { loginUser } from '../store/api.js'
+import 'animate.css';
 
 
 export default {
@@ -96,7 +97,6 @@ export default {
     },
     async showChildComponent() {
       this.showChild = true
-
     }
   }
 }
@@ -123,25 +123,27 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:100%;
+  /* height:100%; */
 }
 h1 {
     /* font-family: 'Poppins', sans-serif; */
       font-size:3rem;
       color: #272B3D;
       font-weight:500;
-      
 }
 form {
 
 display: flex;
 flex-direction: column;
-width: 539px;
+width: 652px;
 height: 748px;
 justify-content:center;
 background: #FFFFFF;
 box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
 border-radius: 40px;
+/* transform:translateX(-100px);
+transition:all 2s ease; */
+
 }
 
 h2 {
@@ -225,7 +227,10 @@ button[type="submit"]:hover {
   margin-top:30px;
 }
 .formcontainer{
-  padding:50px;
+  padding:90px;
 }
-
+/* .singUp.active form{
+  transform:translateX(100px);
+  transition:transform 2s ease;
+} */
 </style>

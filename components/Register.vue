@@ -1,29 +1,34 @@
 <template>
-    <div class="col-lg-6 px-0">
-    <div  class="login-form" >
-        <form @submit.prevent="login" v-if="!showChild">
+  <div class="col">
+    <div class="login-form">
+        <form @submit.prevent="register"  v-if="!showChild">
           <div class="formcontainer">
-          <div class="img-container">
-            <p>Welcome to <img src="/assets/jaim_logo.png" class="img-fluid mx-2" /></p>
+          <div>
+            <p>Welcome to                <img src="/assets/jaim_logo.png" style="width:62px;" /></p>
           </div>
           <div>
-            <h1 style="margin-bottom: revert;">Sign In</h1>
+            <h1 style="margin-bottom: revert;">Sign Up</h1>
           </div>
           <div class="form-group">
             <label for="email">Enter your email address</label>
-            <input type="email" id="email" name="email" v-model="loginData.email" required>
+            <input type="email" id="email" name="email" v-model="registerData.name" required>
              <span v-if="emailerrorMessage" class="error-message">{{emailerrorMessage}}</span>
           </div>
           <div class="form-group">
             <label for="password">Enter your password</label>
-            <input type="password" id="password" name="password" v-model="loginData.password" required>
+            <input type="password" id="password" name="password" v-model="registerData.password" required>
+             <span v-if="passworderrorMessage" class="error-message">{{passworderrorMessage}}</span>
+          </div>
+          <div class="form-group">
+            <label for="password">Enter your username</label>
+            <input type="text" id="username" name="username" v-model="registerData.password" required>
              <span v-if="passworderrorMessage" class="error-message">{{passworderrorMessage}}</span>
           </div>
           <div>
-            <p class="forgothere text-blue">Forgot Password ?</p>
+            <p class="forgothere">Forgot Password ?</p>
           </div>
-          <div class="form-group" @click="login">
-            <button type="submit">Sign in</button>
+          <div class="form-group" @click="register">
+            <button type="submit">Sign Up</button>
           </div>
           <div>
           <p v-if="errorMessage" class="error-message">{{errorMessage}}</p>
@@ -31,114 +36,84 @@
           <div class="registertext">
             <p>
               Have an Account ?
-            <p @click="showChildComponent" class="mx-2 text-blue">
-              Sign up
+            <p @click="showChildComponent" style="color: #0061d5;">
+              Sign in
               </p>
             </p>
           </div>
           </div>
         </form>
       </div>
-      <Register v-if="showChild" />
+      <Login v-if="showChild" />
     </div>
 </template>
 
+
+
+
 <script>
 
-import Register from '@/components/Register.vue'
-import { loginUser } from '../store/api.js'
+import { registerUser } from '../store/api.js'
+
+import LoginComponent from '@/components/Login.vue'
 
 
 export default {
-  name: 'LoginComponent',
-  components:{
-    Register
+  name: 'Register',
+  components: {
+    LoginComponent
   },
-  data() {
-    return {
-      showChild: false,
-      errorMessage:'',
-      emailerrorMessage:'',
-      passworderrorMessage:'',
-      loginData: {
-        email: '',
-        password: ''
-      }
-    }
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await loginUser(this.loginData)
-        if(this.loginData.email === ''){
-          this.emailerrorMessage = 'Please enter your username'
-          return false
-        }else{
-          this.emailerrorMessage = ''
+    data () {
+        return {
+            showChild: false,
+            successMessage:'',
+            errorMessage:'',
+            emailerrorMessage:'',
+            passworderrorMessage:'',
+             registerData: {
+                name: '',
+                email: '',
+                password: '',
+                number: '',
+            },
         }
-        if(this.loginData.password === ''){
-          this.passworderrorMessage = 'please enter your password'
-          return false
-        }else{
-          this.passworderrorMessage = ''
-        }
-        if(response.data.success === false){
-          console.log(response);
-           this.errorMessage = 'Incorrect username or password. Please try again.'
-        }else{
-          this.$toast.success('Login successful!')
-          this.$router.push('dashboard');
-        }
-      } catch (error) {
-       
-        console.error(error);
-      }
     },
-    async showChildComponent() {
-      this.showChild = true
-
+    methods:{
+      async register() {
+        try {
+            const response = await registerUser(this.registerData)
+            this.successMessage = ' User Register successfully '
+        } catch (error) {
+            console.error(error)
+        }
+      },
+      async showChildComponent() {
+        this.showChild = true
+        }
     }
-  }
 }
-</script>
+</script> 
 
 
-<style>
-
-/* * {
-    overflow: hidden;
-
-} */
-.img-container p{
-  font-size:1.4rem;
-}
-.img-container img{
-  width:18%;
-}
-.section{
-  overflow:hidden;
-}
+<style scoped>
 .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height:100%;
 }
 h1 {
-    /* font-family: 'Poppins', sans-serif; */
-      font-size:3rem;
-      color: #272B3D;
-      font-weight:500;
-      
+    font-family: 'Poppins', sans-serif;
+    font-size:xxx-large;
 }
 form {
-
+margin-top: 100px;
 display: flex;
 flex-direction: column;
 width: 539px;
 height: 748px;
-justify-content:center;
+left: 783px;
+top: 72px;
 background: #FFFFFF;
 box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
 border-radius: 40px;
@@ -149,7 +124,9 @@ h2 {
   font-size: 2rem;
   font-weight: 400;
 }
-
+.section{
+  overflow:hidden;
+}
 .form-group {
   display: flex;
   flex-direction: column;
@@ -177,18 +154,24 @@ input[type="password"] {
     font-size: 1rem;
     width: 100%;
 }
+input[type="text"] {
+    padding: 0.9rem;
+    border: 1px solid #0077ff;
+    border-radius: 10px;
+    font-size: 1rem;
+    width: 100%;
+}
 
 button[type="submit"] {
   padding: 0.8rem;
   border: none;
+  border-radius: 5px;
+  background-color: #0077ff;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   margin-top:20px;
-  background: #0067FF;
-  box-shadow: 0px 4px 19px rgba(30, 99, 233, 0.3);
-  border-radius: 10px;
 }
 
 button[type="submit"]:hover {
@@ -227,5 +210,4 @@ button[type="submit"]:hover {
 .formcontainer{
   padding:50px;
 }
-
 </style>

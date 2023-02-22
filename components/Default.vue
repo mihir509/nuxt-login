@@ -1,62 +1,41 @@
+<!-- Please remove this file from your project -->
 <template>
-    <div class="col-lg-6 px-0">
-    <div  class="login-form" >
-        <form @submit.prevent="login" v-if="!showChild">
-          <div class="formcontainer">
-          <div class="img-container">
-            <p>Welcome to <img src="/assets/jaim_logo.png" class="img-fluid mx-2" /></p>
-          </div>
-          <div>
-            <h1 style="margin-bottom: revert;">Sign In</h1>
-          </div>
-          <div class="form-group">
-            <label for="email">Enter your email address</label>
-            <input type="email" id="email" name="email" v-model="loginData.email" required>
-             <span v-if="emailerrorMessage" class="error-message">{{emailerrorMessage}}</span>
-          </div>
-          <div class="form-group">
-            <label for="password">Enter your password</label>
-            <input type="password" id="password" name="password" v-model="loginData.password" required>
-             <span v-if="passworderrorMessage" class="error-message">{{passworderrorMessage}}</span>
-          </div>
-          <div>
-            <p class="forgothere text-blue">Forgot Password ?</p>
-          </div>
-          <div class="form-group" @click="login">
-            <button type="submit">Sign in</button>
-          </div>
-          <div>
-          <p v-if="errorMessage" class="error-message">{{errorMessage}}</p>
-          </div>
-          <div class="registertext">
-            <p>
-              Have an Account ?
-            <p @click="showChildComponent" class="mx-2 text-blue">
-              Sign up
-              </p>
-            </p>
-          </div>
-          </div>
-        </form>
+<div class="section">
+  <div class="row">
+<div class="col-lg-6 px-0">
+<div class="leftivestorportal">
+      
+        <div>
+        <img src="/assets/jaim_logo.png" />
+        <div class="investor">
+        <p>Investor Portal</p>
       </div>
-      <Register v-if="showChild" />
     </div>
+      <div class="mx-auto">
+        <img src="/assets/money-tree-3d-render-concept-with-potted-plant_prev_ui.png"  />
+      </div>
+     
+    </div>
+    </div>
+    <Login />
+  </div>
+  </div>
 </template>
 
-<script>
 
-import Register from '@/components/Register.vue'
+
+<script>
 import { loginUser } from '../store/api.js'
+import Login from '@/components/Login.vue'
 
 
 export default {
-  name: 'LoginComponent',
+  name: 'Default',
   components:{
-    Register
+    Login
   },
   data() {
     return {
-      showChild: false,
       errorMessage:'',
       emailerrorMessage:'',
       passworderrorMessage:'',
@@ -83,7 +62,6 @@ export default {
           this.passworderrorMessage = ''
         }
         if(response.data.success === false){
-          console.log(response);
            this.errorMessage = 'Incorrect username or password. Please try again.'
         }else{
           this.$toast.success('Login successful!')
@@ -94,75 +72,63 @@ export default {
         console.error(error);
       }
     },
-    async showChildComponent() {
-      this.showChild = true
-
-    }
-  }
+     }
 }
 </script>
 
 
 <style>
 
+.text-blue{
+  color:#0067FF;
+}
+
 /* * {
     overflow: hidden;
 
 } */
-.img-container p{
-  font-size:1.4rem;
-}
-.img-container img{
-  width:18%;
-}
-.section{
-  overflow:hidden;
-}
-.login-form {
+/* .login-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height:100%;
-}
+} */
 h1 {
     /* font-family: 'Poppins', sans-serif; */
-      font-size:3rem;
-      color: #272B3D;
-      font-weight:500;
-      
+    font-size:xxx-large;
 }
-form {
-
+/* form {
 display: flex;
 flex-direction: column;
 width: 539px;
 height: 748px;
-justify-content:center;
+left: 783px;
+top: 72px;
 background: #FFFFFF;
 box-shadow: 0px 4px 35px rgba(0, 0, 0, 0.08);
 border-radius: 40px;
-}
+} */
 
-h2 {
+/* h2 {
   margin: 0 0 1rem;
   font-size: 2rem;
   font-weight: 400;
-}
+} */
 
-.form-group {
+/* .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
   width: 100%;
-}
+} */
 
-label {
+/* label {
   margin-bottom: 0.5rem;
   font-size: 1rem;
-}
+} */
 
-input[type="email"]{
+/* input[type="email"]{
  padding: 0.9rem;
     border: 1px solid #0077ff;
     border-radius: 10px;
@@ -181,16 +147,15 @@ input[type="password"] {
 button[type="submit"] {
   padding: 0.8rem;
   border: none;
+  border-radius: 5px;
+  background-color: #0077ff;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
   margin-top:20px;
-  background: #0067FF;
-  box-shadow: 0px 4px 19px rgba(30, 99, 233, 0.3);
-  border-radius: 10px;
-}
-
+} */
+/* 
 button[type="submit"]:hover {
   background-color: #0061d5;
 }
@@ -210,12 +175,14 @@ button[type="submit"]:hover {
 .error-message {
   color: #f00;
   font-weight: bold;
-}
+} */
 .leftivestorportal{ 
   background-color: #0067FF;
   display:flex;
-  padding:100px;
+  padding:80px 150px;
   height:100vh;
+  flex-direction:column;
+  justify-content:space-between;
 }
 .investor{
   color:white;

@@ -16,12 +16,13 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '/fonts.css' }
+      // { rel: 'stylesheet', href: '/static/assets/global.css' }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '@/static/assets/global.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

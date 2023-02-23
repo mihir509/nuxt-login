@@ -2,7 +2,7 @@
 <template>
 <div class="section">
   <div class="row">
-      <div class="col-lg-6 px-0">
+      <div class="col-lg-6 px-0 col-md-12 col-12">
           <div class="leftivestorportal">
       
         <div>

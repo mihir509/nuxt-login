@@ -17,12 +17,12 @@
           </div>
           <div class="form-group col-lg-6 animate__fadeIn animate__animated">
             <label for="username">username</label>
-            <input type="text" id="username" name="username" v-model="registerData.password" required>
+            <input type="text" id="username" name="username" v-model="registerData.username" required>
              <span v-if="passworderrorMessage" class="error-message">{{passworderrorMessage}}</span>
           </div>
           <div class="form-group col-lg-6 animate__fadeIn animate__animated">
-            <label for="password">contact number</label>
-            <input type="text" id="number" name="number" v-model="registerData.password" required>
+            <label for="number">contact number</label>
+            <input type="text" id="number" name="number" v-model="registerData.number" required>
              <span v-if="passworderrorMessage" class="error-message">{{passworderrorMessage}}</span>
           </div>
           <div class="form-group col-lg-6 animate__fadeIn animate__animated">
@@ -42,7 +42,8 @@
           </div>
           
           <div @click="register">
-            <button type="submit" class="submit-btn w-100 animate__fadeIn animate__animated">Sign Up</button>
+            <nuxt-link to="/VerifyEmail">
+            <button type="submit" class="submit-btn w-100 animate__fadeIn animate__animated">Sign Up</button></nuxt-link>
           </div>
           <div>
           <p v-if="errorMessage" class="error-message">{{errorMessage}}</p>

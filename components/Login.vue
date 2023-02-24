@@ -93,7 +93,7 @@ export default {
            this.errorMessage = 'Incorrect username or password. Please try again.'
         }else{
           this.$toast.success('Login successful!')
-          this.$router.push('dashboard');
+          this.$router.push('CompanyInformation');
         }
       } catch (error) {
        
